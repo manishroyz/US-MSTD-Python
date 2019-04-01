@@ -1,15 +1,13 @@
-
-
-'''
+"""
 @author Manish Roy
 
 This module is the main user interface for Oscillo(TM). It was written under the
-object oriented programming paradigme. Running this module will open the program 
+object oriented programming paradigme. Running this module will open the program
 and produce a window that acts as a hub for all the other modules in the Oscillo(TM)
 software package. The function of each method in this module is outlined in commments
 below. Additionally, each line is given its own comment to delineate its specific
 contribution to the overal function of the method.
-'''
+"""
 
 '''
 These lines import the libraries and modules necessary for this module to run.
