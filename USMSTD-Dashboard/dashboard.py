@@ -1,9 +1,18 @@
 import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+
+
+
+import oscillo_collection_functions
 
 class App:
     def __init__(self, master):
+
+        # instantiate the class in the collection functions module
+        self.ocf = oscillo_collection_functions.data_collection()
+
         # Create a container
         self.master = master
         self.master.geometry("1500x700")
@@ -35,6 +44,7 @@ class App:
 
         # Set data
         self.x_values, self.y_values = self.get_ref_data()
+
         self.x_values_curr = []
         self.y_values_curr = []
 
@@ -113,7 +123,10 @@ class App:
     def plot_current_data(self):
         print('In plot_current_data')
 
-        self.x_values_curr, self.y_values_curr = self.get_current_data()
+
+        self.x_values_curr, self.y_values_curr = self.get_single_waveform()
+
+        #self.x_values_curr, self.y_values_curr = self.get_current_data()
         #y2_new = [val + 10 for val in self.y_values_curr]
 
         self.line.set_ydata(self.y_values_curr)
@@ -121,6 +134,64 @@ class App:
 
     def plot_zoomed_in(self):
         print('In plot_zoomed_in...')
+        self.x_values_curr, self.y_values_curr = self.get_single_waveform()
+
+        self.plot_single_waveform(self.x_values_curr, self.y_values_curr)
+        # self.plot_both_waveform(time,amplitude)
+
+
+    def get_single_waveform(self):
+
+        print("IN get_single_waveform..")
+        # This method collects a single waveform from the oscilloscope
+
+        #retrieve the oscilloscope object handle
+        scope = self.ocf.setup_scope()
+
+        #set the vertical scale to the desired value
+        self.ocf.scope_change_zoom(scope,5)
+
+        #retrieve the waveform, time axis, trigger point, and horizontal scale
+        time, amplitude, xzero, xincr = self.ocf.retrieve_waveform(scope)
+        print(xzero)
+        #self.ocf.plot_waveform(time,amplitude)
+
+        time, amplitude = self.ocf.clip_tails(time, amplitude, xzero, xincr, 7e-4)
+        print(amplitude[1])
+
+        # Slicing data array
+        end_index = [n for n, i in enumerate(time) if i > 0.000572][0]
+        time = time[0:end_index]
+        amplitude = amplitude[0:end_index]
+
+        return time, amplitude
+
+
+
+
+    def plot_single_waveform(self, time, amplitude):
+        '''
+        see the documentation online for matplotlib.pyplot
+        '''
+        plt.plot(time, amplitude, 'b-', label='Current')
+        plt.xlabel('Time (microseconds)')
+        plt.ylabel('Amplitude (V)')
+        plt.legend()
+        plt.show()
+        plt.close()
+
+
+    def plot_both_waveform(self, time, amplitude):
+        '''
+        see the documentation online for matplotlib.pyplot
+        '''
+        plt.plot(time, amplitude, 'b-', label='Current')
+        plt.plot(self.x_values,self.y_values,'r-', label='Reference')
+        plt.xlabel('Time (microseconds)')
+        plt.ylabel('Amplitude (V)')
+        plt.legend()
+        plt.show()
+        plt.close()
 
 
 
