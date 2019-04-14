@@ -2,19 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e03169fd-7ef8-4a76-9767-a586c6152172" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/USMSTD-RealTime.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Manish.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestTkPlot.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestTkPlot_2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestTkPlot_3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TestTkPlot_4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/readtTest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/real_time_plotting.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sample.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Oscillo5.0/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Oscillo5.0/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Oscillo5.0/oscillo.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Oscillo5.0/oscillo.py" afterDir="false" />
     </list>
@@ -28,7 +15,7 @@
     <session id="-649034089">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.4" value="1" />
           <entry key="project.opened" value="2" />
@@ -52,10 +39,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="py" value="3982" />
+          <entry key="txt" value="51" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+          <entry key="PLAIN_TEXT" value="51" />
           <entry key="Python" value="3982" />
         </counts>
       </usages-collector>
@@ -78,11 +67,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/readtTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="144">
+              <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -369,6 +355,14 @@
       <option name="presentableId" value="Default" />
       <updated>1554221738694</updated>
     </task>
+    <task id="LOCAL-00001" summary="RealTime project final backup for reference.">
+      <created>1555262549907</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1555262549907</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -380,7 +374,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.25106382" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.25106382" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.32907802" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -415,6 +409,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="RealTime project final backup for reference." />
+    <option name="LAST_COMMIT_MESSAGE" value="RealTime project final backup for reference." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/oscillo_collection_options.py" />
@@ -620,11 +618,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/readtTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="144">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
         </state>
       </provider>
     </entry>
