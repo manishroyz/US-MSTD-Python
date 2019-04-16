@@ -2,7 +2,6 @@ import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
-import numpy as np
 
 
 
@@ -21,44 +20,27 @@ class App:
         self.after_first_time = False
 
         # Left Frame......
-        self.left_frame = tk.LabelFrame(self.master, width="400", text="Summary Plot")
-        self.left_frame_buttons = tk.LabelFrame(self.left_frame, width="400", text="")
+        self.left_frame = tk.LabelFrame(self.master, width="600", text="Summary Plot")
+        self.left_frame_buttons = tk.LabelFrame(self.left_frame, width="600", text="")
 
         # Right Frame....
         self.right_frame = tk.LabelFrame(self.master, width="600", text="Zoomed in Plot")
-        self.right_frame_data = tk.LabelFrame(self.right_frame, width="600", text="")
-        self.right_frame_data2 = tk.LabelFrame(self.right_frame, width="600", text="")
-
-
-        self.L1 = tk.Label(self.right_frame_data, text="Reference TOF (seconds)", width=20)
-        self.L1.pack(side='left', padx=5, pady=5)
-        self.t1 = tk.Text(self.right_frame_data, width=20, height=1, borderwidth=2)
-        self.t1.pack(side='right', padx=5, pady=5)
-
-        self.L2 = tk.Label(self.right_frame_data2, text="Current TOF (seconds)", width=20)
-        self.L2.pack(side='left', padx=5, pady=5)
-        self.t2 = tk.Text(self.right_frame_data2, width=20, height=1, borderwidth=2)
-        self.t2.pack(side='right', padx=5, pady=5)
-
 
         # Packing Left Frame items......
         self.left_frame_buttons.pack(side='bottom', padx=5, pady=5)
         self.left_frame.pack(side='left', expand='yes', fill='both', padx=5, pady=5)
 
         # Packing Right Frame items......
-        self.right_frame.pack(side='right', fill='both', padx=5, pady=5)
-        self.right_frame_data.pack(side='bottom', expand='yes',  padx=5, pady=5)
-        self.right_frame_data2.pack(side='bottom', expand='yes',  padx=5, pady=5)
-
+        self.right_frame.pack(side='right', expand='yes', fill='both', padx=5, pady=5)
 
         # Create Left frame buttons and packing....
-        self.button_left = tk.Button(self.left_frame_buttons,text="Plot Reference data", command=self.plot_ref_data, width=20)
+        self.button_left = tk.Button(self.left_frame_buttons,text="Plot Reference data", command=self.plot_ref_data)
         self.button_left.pack(side="left")
-        self.button_right = tk.Button(self.left_frame_buttons,text="Plot Current Data", command=self.plot_current_data, width=20)
+        self.button_right = tk.Button(self.left_frame_buttons,text="Plot Current Data", command=self.plot_current_data)
         self.button_right.pack(side="left")
-        self.button_zoom_in = tk.Button(self.left_frame_buttons, text="Plot Zoomed in Data", command=self.plot_zoomed_in,  width=20)
+        self.button_zoom_in = tk.Button(self.left_frame_buttons, text="Plot Zoomed in Data", command=self.plot_zoomed_in)
         self.button_zoom_in.pack(side="left")
-        self.button_clear = tk.Button(self.left_frame_buttons, text="Clear Current", command=self.clear_curr_plot_right_window,  width=20)
+        self.button_clear = tk.Button(self.left_frame_buttons, text="Clear Current", command=self.clear_curr_plot_right_window)
         self.button_clear.pack(side="left")
 
 
@@ -71,8 +53,8 @@ class App:
         # Left Frame Figure Handles
         self.fig1 = Figure()
         ax = self.fig1.add_subplot(111)
-        ax.set_xlabel("Time (sec)")
-        ax.set_ylabel("Amplitude (Volts)")
+        ax.set_xlabel("Time")
+        ax.set_ylabel("Amplitude")
         ax.grid()
         ax.xaxis.set_ticks_position('none')
         ax.yaxis.set_ticks_position('none')
@@ -85,8 +67,8 @@ class App:
         # Right Frame Figure Handles
         self.fig2 = Figure()
         self.ax2 = self.fig2.add_subplot(111)
-        self.ax2.set_xlabel("Time  (sec)")
-        self.ax2.set_ylabel("Amplitude (Volts)")
+        self.ax2.set_xlabel("Time")
+        self.ax2.set_ylabel("Amplitude")
         self.ax2.grid()
         self.ax2.xaxis.set_ticks_position('none')
         self.ax2.yaxis.set_ticks_position('none')
@@ -186,90 +168,6 @@ class App:
         self.after_first_time = True
         self.ax2.legend()
         self.canvas_right.draw_idle()
-        self.compute_tof()
-
-
-    def compute_tof(self):
-        t1 = self.find_peak_time_in_window(self.x_values,self.y_values)
-        print("TOF Reference:")
-        print(t1)
-        self.t1.delete('1.0', tk.END)
-        self.t1.insert('1.0', round(t1,18))
-
-        t2 = self.find_peak_time_in_window(self.x_values_curr, self.y_values_curr)
-        print("TOF Current:")
-        print(t2)
-        self.t2.delete('1.0', tk.END)
-        self.t2.insert('1.0', round(t2,18))
-
-
-
-
-    def find_peak_time_in_window(self, x, y):
-
-        # Values of x vector that bound the respective windows
-        window_1_x_vals = [0.000494, 0.0004973]
-        window_2_x_vals = [0.0004978, 0.0005007]
-        # Vector indices for the windows
-        window_1_x_indx = []
-        window_2_x_indx = []
-
-        for i in range(2):
-            window_1_x_indx.append(self.slicer_index(x, window_1_x_vals[i]))
-            window_2_x_indx.append(self.slicer_index(x, window_2_x_vals[i]))
-
-        print(window_1_x_indx)
-        print(window_2_x_indx)
-
-        x_trimmed1 = x[window_1_x_indx[0]:window_1_x_indx[1]]
-        y_trimmed1 = y[window_1_x_indx[0]:window_1_x_indx[1]]
-        wind_1_peak_indx = self.find_indx_for_max_amplitude(y_trimmed1, window_1_x_indx[0])
-
-        print('wind_1_peak_amp corresponding time')
-        print(x[wind_1_peak_indx])
-        print('wind_1_peak_amp')
-        print(y[wind_1_peak_indx])
-
-        x_trimmed2 = x[window_2_x_indx[0]:window_2_x_indx[1]]
-        y_trimmed2 = y[window_2_x_indx[0]:window_2_x_indx[1]]
-
-        # self.plot_single_waveform(x_trimmed1,y_trimmed1)
-        # self.plot_single_waveform(x_trimmed2,y_trimmed2)
-
-
-        wind_2_peak_indx = self.find_indx_for_max_amplitude(y_trimmed2, window_2_x_indx[0])
-
-        print('wind_2_peak_amp corresponding time')
-        print(x[wind_2_peak_indx])
-        print('wind_2_peak_amp')
-        print(y[wind_2_peak_indx])
-        if isinstance(y, np.ndarray):
-            time = x[wind_2_peak_indx][0] - x[wind_1_peak_indx][0]
-        else:
-            time = x[wind_2_peak_indx] - x[wind_1_peak_indx]
-        return time
-
-
-    def find_indx_for_max_amplitude(self,y, ref_indx):
-
-        max_value = max(y)
-
-        print(type(y))
-        if isinstance(y, np.ndarray):
-            print("yes")
-            max_index = np.where(y == max_value)
-            print(max_index)
-            wind_max_indx = ref_indx + max_index[0]
-        else:
-            max_index = y.index(max_value)
-            wind_max_indx = ref_indx + max_index
-        return wind_max_indx
-
-    def slicer_index(self, my_list, val):
-        index = [n for n, i in enumerate(my_list) if i > val][0]
-        return index
-
-
 
 
     def clear_curr_plot_right_window(self):
@@ -308,16 +206,16 @@ class App:
 
 
 
-    def plot_single_waveform(self, time, amplitude):
-        '''
-        see the documentation online for matplotlib.pyplot
-        '''
-        plt.plot(time, amplitude, 'b-', label='Current')
-        plt.xlabel('Time (microseconds)')
-        plt.ylabel('Amplitude (V)')
-        plt.legend()
-        plt.show()
-        plt.close()
+    # def plot_single_waveform(self, time, amplitude):
+    #     '''
+    #     see the documentation online for matplotlib.pyplot
+    #     '''
+    #     plt.plot(time, amplitude, 'b-', label='Current')
+    #     plt.xlabel('Time (microseconds)')
+    #     plt.ylabel('Amplitude (V)')
+    #     plt.legend()
+    #     plt.show()
+    #     plt.close()
 
     # def plot_both_waveform(self, time, amplitude):
     #     '''

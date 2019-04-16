@@ -37,6 +37,10 @@ def find_peak(amplitude):
     return max(peak_indicies)
 
 
+def find_peak_locations():
+    print(' ')
+
+
 
 x,y = get_ref_data()
 
@@ -46,25 +50,25 @@ x,y = get_ref_data()
 # plt.show()
 # plt.close()
 
-window_bounds1 = [0.000494, 0.0004973]
-window_bounds2 = [0.0004978, 0.0005007]
-window1 = []
-window2 = []
+# Values of x vector that bound the respective windows
+window_1_x_vals = [0.000494, 0.0004973]
+window_2_x_vals = [0.0004978, 0.0005007]
+# Vector indices for the windows
+window_1_x_indx = []
+window_2_x_indx = []
 
-for i in range(len(window_bounds1)):
-    ind1 = slicer_index(x, window_bounds1[i])
-    window1.append(ind1)
-    ind2 = slicer_index(x, window_bounds2[i])
-    window2.append(ind2)
+for i in range(2):
+    window_1_x_indx.append(slicer_index(x, window_1_x_vals[i]))
+    window_2_x_indx.append(slicer_index(x, window_2_x_vals[i]))
 
-print(window1)
-print(window2)
+print(window_1_x_indx)
+print(window_2_x_indx)
 
-x_trimmed1 = x[window1[0]:window1[1]]
-y_trimmed1 = y[window1[0]:window1[1]]
+x_trimmed1 = x[window_1_x_indx[0]:window_1_x_indx[1]]
+y_trimmed1 = y[window_1_x_indx[0]:window_1_x_indx[1]]
 
-x_trimmed2 = x[window2[0]:window2[1]]
-y_trimmed2 = y[window2[0]:window2[1]]
+x_trimmed2 = x[window_2_x_indx[0]:window_2_x_indx[1]]
+y_trimmed2 = y[window_2_x_indx[0]:window_2_x_indx[1]]
 
 # plt.plot(x_trimmed1, y_trimmed1)
 # plt.plot(x_trimmed2, y_trimmed2)
@@ -77,8 +81,8 @@ y_trimmed2 = y[window2[0]:window2[1]]
 max_value = max(y_trimmed1)
 max_index = y_trimmed1.index(max_value)
 
-x_loc = window1[0]+max_index
+x_loc = window_1_x_indx[0]+max_index
 x_val = x[x_loc]
-print('g')
+print(x_val)
 # peaks = []
 # peaks = find_peak(y_trimmed1)
