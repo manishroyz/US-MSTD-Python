@@ -77,8 +77,11 @@ def app():
 
     def compute_tof():
         TOF = 302
+
         print('helllllo')
+
         t1.insert('1.0', TOF)
+        t1.delete('1.0', tk.END)
 
     rf_button_left = tk.Button(right_frame, text="Compute TOF", command=compute_tof(), width=30)
     # rf_button_right = tk.Button(right_frame, text="plot-D", command='', width=30)

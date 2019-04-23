@@ -22,23 +22,29 @@ class App:
 
         # Left Frame......
         self.left_frame = tk.LabelFrame(self.master, width="400", text="Summary Plot")
-        self.left_frame_buttons = tk.LabelFrame(self.left_frame, width="400", text="")
+        self.left_frame_buttons = tk.LabelFrame(self.left_frame, width="300", text="")
 
         # Right Frame....
         self.right_frame = tk.LabelFrame(self.master, width="600", text="Zoomed in Plot")
         self.right_frame_data = tk.LabelFrame(self.right_frame, width="600", text="")
         self.right_frame_data2 = tk.LabelFrame(self.right_frame, width="600", text="")
+        # self.right_frame_data3 = tk.LabelFrame(self.right_frame, width="600", text="")
 
-
-        self.L1 = tk.Label(self.right_frame_data, text="Reference TOF (seconds)", width=20)
+        self.L1 = tk.Label(self.right_frame_data, text="Reference TOF (seconds)", width=22, font=("Helvetica", 18))
         self.L1.pack(side='left', padx=5, pady=5)
-        self.t1 = tk.Text(self.right_frame_data, width=20, height=1, borderwidth=2)
+        self.t1 = tk.Text(self.right_frame_data, width=15, height=1, borderwidth=2, font=("Helvetica", 18))
         self.t1.pack(side='right', padx=5, pady=5)
 
-        self.L2 = tk.Label(self.right_frame_data2, text="Current TOF (seconds)", width=20)
+        self.L2 = tk.Label(self.right_frame_data2, text="Real-Time TOF (seconds)", width=22, font=("Helvetica", 18))
         self.L2.pack(side='left', padx=5, pady=5)
-        self.t2 = tk.Text(self.right_frame_data2, width=20, height=1, borderwidth=2)
+        self.t2 = tk.Text(self.right_frame_data2, width=15, height=1, borderwidth=2, font=("Helvetica", 18))
         self.t2.pack(side='right', padx=5, pady=5)
+
+        # self.L3 = tk.Label(self.right_frame_data3, text="Real-Time Temperature (C)", width=22, font=("Helvetica", 18))
+        # self.L3.pack(side='left', padx=5, pady=5)
+        # self.t3 = tk.Text(self.right_frame_data3, width=15, height=1, borderwidth=2, font=("Helvetica", 18))
+        # self.t3.pack(side='right', padx=5, pady=5)
+
 
 
         # Packing Left Frame items......
@@ -47,18 +53,19 @@ class App:
 
         # Packing Right Frame items......
         self.right_frame.pack(side='right', fill='both', padx=5, pady=5)
-        self.right_frame_data.pack(side='bottom', expand='yes',  padx=5, pady=5)
-        self.right_frame_data2.pack(side='bottom', expand='yes',  padx=5, pady=5)
+        # self.right_frame_data3.pack(side='top', expand='yes',  padx=5)
+        self.right_frame_data2.pack(side='top', expand='yes',  padx=5)
+        self.right_frame_data.pack(side='top', expand='yes',  padx=5)
 
 
         # Create Left frame buttons and packing....
         self.button_left = tk.Button(self.left_frame_buttons,text="Plot Reference data", command=self.plot_ref_data, width=20)
         self.button_left.pack(side="left")
-        self.button_right = tk.Button(self.left_frame_buttons,text="Plot Current Data", command=self.plot_current_data, width=20)
+        self.button_right = tk.Button(self.left_frame_buttons,text="Plot Real_Time Data", command=self.plot_current_data, width=20)
         self.button_right.pack(side="left")
         self.button_zoom_in = tk.Button(self.left_frame_buttons, text="Plot Zoomed in Data", command=self.plot_zoomed_in,  width=20)
         self.button_zoom_in.pack(side="left")
-        self.button_clear = tk.Button(self.left_frame_buttons, text="Clear Current", command=self.clear_curr_plot_right_window,  width=20)
+        self.button_clear = tk.Button(self.left_frame_buttons, text="Clear Real-Time Data", command=self.clear_curr_plot_right_window,  width=20)
         self.button_clear.pack(side="left")
 
 
@@ -182,7 +189,7 @@ class App:
 
 
         self.ax2.plot(x_values,y_values,'r-', label='Reference', linewidth=1.0)
-        self.ax2.plot(x_values_curr,y_values_curr, 'g-', label='Current', linewidth=1.0)
+        self.ax2.plot(x_values_curr,y_values_curr, 'g-', label='Real-Time', linewidth=1.0)
         self.after_first_time = True
         self.ax2.legend()
         self.canvas_right.draw_idle()
@@ -194,13 +201,13 @@ class App:
         print("TOF Reference:")
         print(t1)
         self.t1.delete('1.0', tk.END)
-        self.t1.insert('1.0', round(t1,18))
+        self.t1.insert('1.0', round(t1,11))
 
         t2 = self.find_peak_time_in_window(self.x_values_curr, self.y_values_curr)
-        print("TOF Current:")
+        print("TOF Real Time:")
         print(t2)
         self.t2.delete('1.0', tk.END)
-        self.t2.insert('1.0', round(t2,18))
+        self.t2.insert('1.0', round(t2,11))
 
 
 
